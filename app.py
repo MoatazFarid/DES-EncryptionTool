@@ -8,26 +8,34 @@
 
 #importing libraries ued in that tool
 from pyDes import * #thats a pure implementation of DES and TRIPLE DES encryption algorithms written by Todd Whiteman
+import Tkinter #GUI
 
-#get key
-key = "mhgtfihd8"
-#get the first 8 bytes only from the key
-key = key[0:8]
-print(key)
+top = Tkinter.Tk() #main widget
 
-# algo = des(key ,CBC, "\0\0\0\0\0\0\0\0", pad=None, padmode=PAD_PKCS5)
-algo = des(key ,CBC, key, pad=None, padmode=PAD_PKCS5)
 
-#testing with textfile
 
-file = open('file1.txt','rb')
-enc= algo.encrypt(file.read());
-print(enc)
-dec = algo.decrypt(enc)
-print(dec)
-#testing with audio file
+top.mainloop() #GUI Mainloop
 
-#testing with image
 
+
+#get key must be just 8 char
+key = "12345678"
+
+algo = des(key ,ECB, pad=None, padmode=PAD_PKCS5)
+
+#encrypting file
+File = open('file','rb+')
+enc= algo.encrypt(File.read());
+encFile = open('file-encrepted','wb+')
+encFile.write(enc); #write the ecripted data to file
+encFile.close()
+
+
+# decrepting file
+File = open('file-encrepted','rb+')
+dec= algo.decrypt(File.read());
+decFile = open('file-decrepted','wb+')
+decFile.write(dec); #write the ecripted data to file
+decFile.close()
 
 
